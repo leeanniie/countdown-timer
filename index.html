@@ -221,7 +221,7 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="title">距離 <span class="highlight" id="eventName">第一堂直播上課日</span> 還有...</h1>
+        <h1 class="title" id="eventTitle" style="display: none;"></h1>
         
         <div class="countdown" id="countdown">
             <div class="time-box">
@@ -244,8 +244,8 @@
     </div>
 
     <div class="expired-message" id="expiredMessage">
-        <h2>You've reached free usage limit!</h2>
-        <p>時間到了！🎉</p>
+        <h2>時間到了！</h2>
+        <p>🎉</p>
     </div>
 
     <!-- 簡化的設定面板 -->
@@ -265,7 +265,6 @@
         let eventName = urlParams.get('event') || '第一堂直播上課日';
         
         // 設定初始值
-        document.getElementById('eventName').textContent = eventName;
         document.getElementById('eventInput').value = eventName;
         document.getElementById('targetDate').value = targetDate.toISOString().slice(0, 16);
         
@@ -312,7 +311,6 @@
                 targetDate = new Date(newTargetDate);
                 eventName = newEventName;
                 
-                document.getElementById('eventName').textContent = eventName;
                 document.getElementById('countdown').style.opacity = '1';
                 document.getElementById('expiredMessage').classList.remove('show');
                 
