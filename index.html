@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>倒數計時器</title>
     <style>
         * {
@@ -32,10 +32,11 @@
             gap: 20px;
             justify-content: center;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .time-box {
-            border-radius: 24px;
+            border-radius: 20px;
             padding: 45px 40px;
             min-width: 180px;
             text-align: center;
@@ -43,43 +44,43 @@
             cursor: default;
         }
 
-        /* 精確的顏色漸層 - 從深到淺 */
+        /* 精確的顏色配置 - 從您的圖片中提取 */
         .time-box:nth-child(1) {
-            background-color: #D4A373;
+            background-color: #C8987B;
         }
 
         .time-box:nth-child(2) {
-            background-color: #DDB892;
+            background-color: #D9B08C;
         }
 
         .time-box:nth-child(3) {
-            background-color: #E6CCB2;
+            background-color: #E8C4A0;
         }
 
         .time-box:nth-child(4) {
-            background-color: #F0E0D0;
+            background-color: #F5E6D3;
         }
 
         .time-box:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
         }
 
         .number {
-            font-size: 90px;
-            font-weight: 600;
-            color: #8B6F47;
+            font-size: 88px;
+            font-weight: 700;
+            color: #8B5A3C;
             line-height: 1;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             letter-spacing: -3px;
         }
 
         .label {
             font-size: 18px;
-            color: #8B6F47;
+            color: #8B5A3C;
             text-transform: uppercase;
             letter-spacing: 4px;
             font-weight: 400;
-            opacity: 0.8;
+            opacity: 0.7;
         }
 
         /* 設定面板 */
@@ -127,7 +128,7 @@
 
         .settings-panel input:focus {
             outline: none;
-            border-color: #D4A373;
+            border-color: #C8987B;
         }
 
         .button-group {
@@ -148,12 +149,12 @@
         }
 
         .btn-save {
-            background: #D4A373;
+            background: #C8987B;
             color: white;
         }
 
         .btn-save:hover {
-            background: #B8935F;
+            background: #B8876A;
         }
 
         .btn-cancel {
@@ -186,6 +187,20 @@
         }
 
         /* 響應式設計 */
+        
+        /* 平板橫向和小筆電 */
+        @media (max-width: 1024px) {
+            .time-box {
+                min-width: 160px;
+                padding: 40px 35px;
+            }
+            
+            .number {
+                font-size: 72px;
+            }
+        }
+        
+        /* 平板直向 */
         @media (max-width: 768px) {
             .countdown {
                 display: grid;
@@ -201,7 +216,7 @@
             }
 
             .number {
-                font-size: 60px;
+                font-size: 56px;
             }
 
             .label {
@@ -210,17 +225,84 @@
             }
         }
 
-        @media (max-width: 480px) {
+        /* 手機橫向 */
+        @media (max-width: 640px) and (orientation: landscape) {
+            body {
+                padding: 10px;
+            }
+            
+            .countdown {
+                gap: 12px;
+            }
+            
             .time-box {
-                padding: 30px 25px;
+                padding: 20px 25px;
+                min-width: 120px;
+            }
+            
+            .number {
+                font-size: 40px;
+            }
+            
+            .label {
+                font-size: 11px;
+            }
+        }
+
+        /* 手機直向 */
+        @media (max-width: 480px) {
+            .countdown {
+                gap: 12px;
+            }
+            
+            .time-box {
+                padding: 28px 22px;
+                border-radius: 16px;
             }
 
             .number {
-                font-size: 48px;
+                font-size: 44px;
+                letter-spacing: -2px;
             }
 
             .label {
-                font-size: 12px;
+                font-size: 11px;
+                letter-spacing: 2px;
+            }
+        }
+        
+        /* 超小螢幕 */
+        @media (max-width: 360px) {
+            .countdown {
+                gap: 8px;
+            }
+            
+            .time-box {
+                padding: 24px 18px;
+            }
+            
+            .number {
+                font-size: 36px;
+            }
+            
+            .label {
+                font-size: 10px;
+            }
+        }
+        
+        /* Notion 嵌入優化 */
+        @media (max-height: 400px) {
+            body {
+                min-height: auto;
+                padding: 10px;
+            }
+            
+            .time-box {
+                padding: 25px 20px;
+            }
+            
+            .number {
+                font-size: 48px;
             }
         }
     </style>
@@ -265,7 +347,7 @@
     <script>
         // 檢查是否允許編輯（只在直接訪問時允許，不在 iframe 中允許）
         const isInIframe = window !== window.parent;
-        const allowEdit = !isInIframe; // 如果在 iframe 中就不允許編輯
+        const allowEdit = !isInIframe;
         
         // 從 URL 參數獲取設定
         const urlParams = new URLSearchParams(window.location.search);
@@ -337,8 +419,10 @@
             document.getElementById('seconds').textContent = seconds;
         }
         
-        // 每秒更新
+        // 每秒更新一次
         setInterval(updateDisplay, 1000);
+        
+        // 初始顯示
         updateDisplay();
     </script>
 </body>
